@@ -1,16 +1,19 @@
 import random
 import datetime
+from mutagen.mp3 import MP3 as mp3
+import pygame
+import time
 
-time = datetime.datetime.now()
+times = datetime.datetime.now()
 ai = "アイ＞＞"
 
 def tim():
-    print(ai + "今の時間は" + str(time.hour) + "時" + str(time.minute) + "分だよ")
+    print(ai + "今の時間は" + str(times.hour) + "時" + str(times.minute) + "分だよ")
 
 def year():
-    print(ai + "今日は" + str(time.month) + "月" + str(time.day) + "日だよ")
+    print(ai + "今日は" + str(times.month) + "月" + str(times.day) + "日だよ")
 
-ti = time.hour
+ti = times.hour
 
 hen = ["どうかした？" , "おーい" , "なんか話してよー"]
 l = ["大吉","中吉","小吉","吉","末吉","凶","大凶"]
@@ -53,6 +56,17 @@ def jan():
             print(ai + "パー \n" + ai + "あいこだよ")
     else:
         print(ai + "1から3の整数を選んでね")
+
+eotw = ["Dropout Boulevard.mp3" , "Bad Day.mp3" , "Fangs.mp3" , "Forever.mp3" , "Gone.mp3" , "My Sleeping Beauty.mp3" , "Hollow.mp3" , "Over.mp3" , "Rollerskates.mp3" , "Stargazer.mp3"]
+
+def music(ongaku):
+    filename = ongaku
+    pygame.mixer.init()
+    pygame.mixer.music.load(filename) 
+    mp3_length = mp3(filename).info.length 
+    pygame.mixer.music.play(1) 
+    time.sleep(mp3_length + 0.25)
+    pygame.mixer.music.stop()
 
 print("会話開始")
 
@@ -97,6 +111,11 @@ def h():
 
         elif an == "じゃんけんしよ":
             jan()
+
+        elif an == "音楽かけて":
+            m = random.randint(0,9)   
+            print(eotw[m])
+            music(eotw[m])
 
         else:
             print(ai + "{}、なんだね！".format(an))
