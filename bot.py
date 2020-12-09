@@ -23,6 +23,37 @@ def omi():
     v = l[a]
     print(ai + "今日のあなたの運勢は" + v + "だよ!\n" + ai + z[v])
 
+def jan():
+    print(ai + "じゃんけん大会スタート！")
+    print(ai + "番号を入力してね")
+    print("[1.グー　2.チョキ　3.パー]")
+    ja = input("番号:")
+    jb = int(ja)
+    jc = random.randint(1,3)
+    if jb==1:
+        if jc==1:
+            print(ai + "グー　　\n" + ai + "あいこだね！")
+        elif jc==2:
+            print(ai + "チョキ \n" + ai + name + "の勝ちだよ")
+        else:
+            print(ai + "パー \n" + ai + "私の勝ちだよ！")
+    elif jb==2:
+        if jc==1:
+            print(ai + "グー\n" + ai + "私の勝ちだよ！")
+        elif jc==2:
+            print(ai + "チョキ \n" + ai + "あいこだね！")
+        else:
+            print(ai + "パー \n" + ai + name + "の勝ちだよ")
+    elif jb==3:
+        if jc==1:
+            print(ai + "グー \n" + ai + name + "の勝ちだよ")
+        elif jc==2:
+            print(ai + "チョキ \n" + ai + "私の勝ちだよ！")
+        else:
+            print(ai + "パー \n" + ai + "あいこだよ")
+    else:
+        print(ai + "1から3の整数を選んでね")
+
 print("会話開始")
 
 if ti <= 9:
@@ -63,6 +94,9 @@ def h():
 
         elif an == "今日の日付は？":
             year()
+
+        elif an == "じゃんけんしよ":
+            jan()
 
         else:
             print(ai + "{}、なんだね！".format(an))
