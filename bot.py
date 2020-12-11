@@ -161,10 +161,12 @@ def h():
             print(ai + "もう一回やる？")
             voice.Speak("もう一回やる？")
             dd = input("はい、いいえ＞")
-            if dd == "はい":
+            while dd == "はい":
                 jan()
+                print(ai + "もう一回やる？")
+                voice.Speak("もう一回やる？")
+                dd = input("はい、いいえ＞")
         
-
         elif an == "音楽かけて":
             m = random.randint(0,9)   
             print(eotw[m])
