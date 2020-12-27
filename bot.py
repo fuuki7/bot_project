@@ -4,6 +4,8 @@ from mutagen.mp3 import MP3 as mp3
 import pygame
 import time
 import win32com.client as wincl
+import urllib3
+from bs4 import BeautifulSoup
 
 voice = wincl.Dispatch("SAPI.SpVoice")
 times = datetime.datetime.now()
@@ -15,6 +17,20 @@ s = "きっといいことがあるでしょう"
 x = "運勢など気にせず頑張ってください"
 z ={"大吉": s ,"中吉": s ,"小吉": s ,"吉": s ,"末吉": s ,"凶": x ,"大凶": x}
 eotw = ["Dropout Boulevard.mp3" , "Bad Day.mp3" , "Fangs.mp3" , "Forever.mp3" , "Gone.mp3" , "My Sleeping Beauty.mp3" , "Hollow.mp3" , "Over.mp3" , "Rollerskates.mp3" , "Stargazer.mp3"]
+url = 'https://weather.yahoo.co.jp/weather/jp/8/4010.html'
+http = urllib3.PoolManager()
+instance = http.request('GET', url)
+soup = BeautifulSoup(instance.data, 'html.parser')
+
+def tenki_today():
+    tenki_today = soup.select_one('#main > div.forecastCity > table > tr > td > div > p.pict')
+    print(ai + "今日の天気は"+tenki_today.text + "です")
+    voice.Speak("今日の天気は"+tenki_today.text + "です")
+
+def tenki_tomorrow():
+    tenki_tomorrow = soup.select_one('#main > div.forecastCity > table > tr > td + td > div > p.pict')
+    print(ai + "明日の天気は"+tenki_tomorrow.text + "です")
+    voice.Speak("明日の天気は"+tenki_tomorrow.text + "です")
 
 def tim():
     print(ai + "今の時間は" + str(times.hour) + "時" + str(times.minute) + "分です")
@@ -170,6 +186,12 @@ def h():
             m = random.randint(0,9)   
             print(eotw[m])
             music(eotw[m])
+
+        elif an == "今日の天気教えて":
+            tenki_today()
+
+        elif an == "明日の天気教えて":
+            tenki_tomorrow()
 
         else:
             print(ai + "{}なんですね".format(an))
